@@ -15,10 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     private ProductDbHelper mDbHelper;
 
-    // Gets the data repository in write mode
-   private SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,9 +22,14 @@ public class MainActivity extends AppCompatActivity {
 
         mDbHelper = new ProductDbHelper(this);
 
+        insertData();
+        queryData();
     }
 
     private void insertData() {
+        // Gets the data repository in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
         // Create a new map of values, where column names are the keys
         ContentValues values = new ContentValues();
         values.put(ProductEntry.COLUMN_PRODUCT_NAME, "Dummy Book Name");
@@ -43,6 +44,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private Cursor queryData() {
+
+        // Gets the data repository in write mode
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
         String[] projection = {
