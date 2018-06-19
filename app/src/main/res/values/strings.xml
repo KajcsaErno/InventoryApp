@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Inventory App</string>
+    <string name="dummy_book_name">Dummy Book Name</string>
+    <string name="dummy_suplier_name">Dummy Supplier Name</string>
+    <string name="dummy_phone_number">1234567890</string>
+    <string name="insert_unsuccesssful">Insert unsuccessful</string>
+    <string name="data_inserted_successfully">Data inserted successfully with row ID</string>
 </resources>
