@@ -1,107 +1,171 @@
 package com.example.android.inventoryapp;
 
+import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.Intent;
+import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
-import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
-import com.example.android.inventoryapp.data.ProductDbHelper;
+import com.example.android.inventoryapp.data.ChocolateContract.ChocolateEntry;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String LOG_TAG = MainActivity.class.getSimpleName();
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private ProductDbHelper mDbHelper;
+/**
+ * Displays list of chocolates that were entered and stored in the app.
+ */
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    /** Identifier for the chocolate data loader */
+    private static final int CHOCOLATE_LOADER = 0;
+    @BindView(R.id.floating_chocolate_button)
+    FloatingActionButton floatingChocolateButton;
+    /** Adapter for the ListView */
+    ChocolateCursorAdapter cursorAdapter;
+
+    @BindView(R.id.chocolate_listView)
+    ListView chocolateListView;
+
+    @BindView(R.id.empty_linearLayout)
+    View emptyLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        mDbHelper = new ProductDbHelper(this);
-
-        insertData();
-        queryData();
-    }
-
-    private void insertData() {
-        // Gets the data repository in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        // Create a new map of values, where column names are the keys
-        ContentValues values = new ContentValues();
-        values.put(ProductEntry.COLUMN_PRODUCT_NAME, getString(R.string.dummy_book_name));
-        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, 19.33);
-        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, 5);
-        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME, getString(R.string.dummy_suplier_name));
-        values.put(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, getString(R.string.dummy_phone_number));
-
-        // Insert the new row, returning the primary key value of the new row
-        long newRowId = db.insert(ProductEntry.TABLE_NAME, null, values);
-        if (newRowId != -1) {
-            Log.d(LOG_TAG, getString(R.string.data_inserted_successfully) + newRowId);
-        } else {
-            Log.d(LOG_TAG, getString(R.string.insert_unsuccesssful));
-        }
-    }
-
-    private void queryData() {
-        // Gets the data repository in write mode
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
-
-        // Define a projection that specifies which columns from the database
-        // you will actually use after this query.
-        String[] projection = {
-                ProductEntry._ID,
-                ProductEntry.COLUMN_PRODUCT_NAME,
-                ProductEntry.COLUMN_PRODUCT_PRICE,
-                ProductEntry.COLUMN_PRODUCT_QUANTITY,
-                ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
-                ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER};
-
-        Cursor cursor = db.query(
-                ProductEntry.TABLE_NAME, //The table to query
-                projection,              // The array of columns to return (pass null to get all)
-                null,            // The columns for the WHERE clause
-                null,           // The values for the WHERE clause
-                null,            // don't group the rows
-                null,               // don't filter by row groups
-                null);              // The sort order
-
-
-        try {
-            // Figure out the index of each column
-            int idColumnIndex = cursor.getColumnIndex(ProductEntry._ID);
-            int nameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_PRICE);
-            int quantityColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-            int supplierNameColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
-            int supplierPhoneNumberColumnIndex = cursor.getColumnIndex(ProductEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
-            // Iterate through all the returned rows in the cursor
-            while (cursor.moveToNext()) {
-                // Use that index to extract the String or Int value of the word
-                // at the current row the cursor is on.
-                int currentId = cursor.getInt(idColumnIndex);
-                String currentName = cursor.getString(nameColumnIndex);
-                float currentPrice = cursor.getFloat(priceColumnIndex);
-                int currentQuantity = cursor.getInt(quantityColumnIndex);
-                String currentSupplierName = cursor.getString(supplierNameColumnIndex);
-                String currentSupplierPhoneNumber = cursor.getString(supplierPhoneNumberColumnIndex);
-
-                Log.d(LOG_TAG, "Id: " + currentId
-                        + "\n" + "Name: " + currentName
-                        + "\n" + "Price: " + currentPrice
-                        + "\n" + "Quantity: " + currentQuantity
-                        + "\n" + "Supplier name: " + currentSupplierName
-                        + "\n" + "Supplier phone number: " + currentSupplierPhoneNumber);
-
+        floatingChocolateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openEditorIntent = new Intent(MainActivity.this, EditorActivity.class);
+                startActivity(openEditorIntent);
             }
-        } finally {
-            // Always close the cursor when you're done reading from it. This releases all its
-            // resources and makes it invalid.
-            cursor.close();
-        }
+        });
+        // Find and set empty view on the ListView, so that it only shows when the list has 0 items.
+        chocolateListView.setEmptyView(emptyLinearLayout);
+
+        // Setup an Adapter to create a list item for each row of chocolate data in the Cursor.
+        // There is no chocolate data yet (until the loader finishes) so pass in null for the Cursor.
+        cursorAdapter = new ChocolateCursorAdapter(this, null);
+        chocolateListView.setAdapter(cursorAdapter);
+
+        // Setup the item click listener
+        chocolateListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Create new intent to go to {@link EditorActivity}
+                Intent openEditorIntent = new Intent(MainActivity.this, EditorActivity.class);
+
+                // Form the content URI that represents the specific chocolate that was clicked on,
+                // by appending the "id" (passed as input to this method) onto the
+                // {@link ChocolateEntry#CONTENT_URI}.
+                // For example, the URI would be "content://com.example.android.chocolates/chocolates/2"
+                // if the chocolate with ID 2 was clicked on.
+                Uri currentChocolateUri = ContentUris.withAppendedId(ChocolateEntry.CONTENT_URI, id);
+
+                // Set the URI on the data field of the intent
+                openEditorIntent.setData(currentChocolateUri);
+
+                // Launch the {@link EditorActivity} to display the data for the current chocolate.
+                startActivity(openEditorIntent);
+            }
+        });
+
+        // Kick off the loader
+        getLoaderManager().initLoader(CHOCOLATE_LOADER, null, this);
     }
+
+    /**
+     * Helper method to insert hardcoded chocolate data into the database. For debugging purposes only.
+     */
+    private void insertChocolate() {
+        // Create a new map of contentValues, where column names are the keys
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_NAME, getString(R.string.milka));
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_FLAVOR, getString(R.string.whole_nuts));
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_PRICE, "5");
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY, "10");
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_NAME, getString(R.string.coocke));
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_PHONE_NUMBER, getString(R.string.phone));
+
+        getContentResolver().insert(ChocolateEntry.CONTENT_URI, contentValues);
+    }
+
+    /**
+     * Helper method to delete all chocolates in the database.
+     */
+    private void deleteAllChocolates() {
+        int rowsDeleted = getContentResolver().delete(ChocolateEntry.CONTENT_URI, null, null);
+        Log.v("MainActivity", rowsDeleted + " rows deleted from chocolate database");
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu options from the res/menu/menu_main.xmlle.
+        // This adds menu items to the app bar.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // User clicked on a menu option in the app bar overflow menu
+        switch (item.getItemId()) {
+            case R.id.action_insert_dummy_data:
+                insertChocolate();
+                return true;
+            case R.id.action_delete_all_entries:
+                deleteAllChocolates();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @NonNull
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, @Nullable Bundle bundle) {
+        // Define a projection that specifies the columns from the table we care about.
+        String[] projection = {
+                ChocolateEntry._ID,
+                ChocolateEntry.COLUMN_CHOCOLATE_NAME,
+                ChocolateEntry.COLUMN_CHOCOLATE_FLAVOR,
+                ChocolateEntry.COLUMN_CHOCOLATE_PRICE,
+                ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY};
+        // This loader will execute the ContentProvider's query method on a background thread
+        return new CursorLoader(this,   // Parent activity context
+                ChocolateEntry.CONTENT_URI,   // Provider content URI to query
+                projection,             // Columns to include in the resulting Cursor
+                null,                   // No selection clause
+                null,                   // No selection arguments
+                null);                  // Default sort order
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<Cursor> loader, Cursor cursor) {
+        // Update {@link ChocolateCursorAdapter} with this new cursor containing updated chocolate data
+        cursorAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<Cursor> loader) {
+        // Callback called when the data needs to be deleted
+        cursorAdapter.swapCursor(null);
+
+    }
+
 }

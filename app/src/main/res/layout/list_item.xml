@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cardview="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:layout_editor_absoluteY="25dp">
+
+
+    <ImageView
+        android:id="@+id/chocolate_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        cardview:layout_constraintBottom_toBottomOf="@+id/coins_imageView"
+        cardview:layout_constraintStart_toStartOf="parent"
+        cardview:layout_constraintTop_toTopOf="@+id/chocolate_name_textView"
+        cardview:srcCompat="@drawable/chocolate" />
+
+    <TextView
+        android:id="@+id/chocolate_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        cardview:layout_constraintBottom_toBottomOf="parent"
+        cardview:layout_constraintStart_toEndOf="@+id/chocolate_imageView"
+        cardview:layout_constraintTop_toTopOf="parent"
+        tools:text="Chocolate Name" />
+
+    <TextView
+        android:id="@+id/chocolate_price_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
+        cardview:layout_constraintBottom_toBottomOf="@+id/coins_imageView"
+        cardview:layout_constraintEnd_toStartOf="@+id/coins_imageView"
+        cardview:layout_constraintTop_toTopOf="@+id/coins_imageView"
+        tools:text="15" />
+
+    <ImageView
+        android:id="@+id/sell_imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        cardview:layout_constraintEnd_toEndOf="@+id/chocolate_quantity_textView"
+        cardview:layout_constraintStart_toStartOf="@+id/chocolate_quantity_textView"
+        cardview:layout_constraintTop_toBottomOf="@+id/chocolate_quantity_textView"
+        cardview:srcCompat="@drawable/sell" />
+
+    <ImageView
+        android:id="@+id/coins_imageView"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        cardview:layout_constraintEnd_toEndOf="@+id/chocolate_flavor_textView"
+        cardview:layout_constraintStart_toStartOf="@+id/chocolate_flavor_textView"
+        cardview:layout_constraintTop_toBottomOf="@+id/chocolate_flavor_textView"
+        cardview:srcCompat="@drawable/coins" />
+
+    <TextView
+        android:id="@+id/chocolate_flavor_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        cardview:layout_constraintEnd_toEndOf="@+id/chocolate_name_textView"
+        cardview:layout_constraintStart_toStartOf="@+id/chocolate_name_textView"
+        cardview:layout_constraintTop_toBottomOf="@+id/chocolate_name_textView"
+        tools:text="Flavor" />
+
+    <TextView
+        android:id="@+id/chocolate_quantity_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/oval_background_piece_blue"
+        android:padding="15dp"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        cardview:layout_constraintEnd_toEndOf="parent"
+        cardview:layout_constraintTop_toTopOf="@+id/chocolate_name_textView"
+        tools:text="15" />
+
+
+</android.support.constraint.ConstraintLayout>
