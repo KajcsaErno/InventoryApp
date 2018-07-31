@@ -2,9 +2,7 @@
     <string name="app_name">Chocolate Inventory</string>
     <string name="insert_unsuccesssful">Insert unsuccessful</string>
     <string name="data_inserted_successfully">Data inserted successfully with row ID</string>
-    <string name="empty_text_view">Get started by adding a chocolate</string>
-    <string name="editor_activity_title_new_chocolate">Add a Chocolate</string>
-    <string name="editor_activity_title_edit_chocolate">Edit The Chocolate</string>
+    <string name="empty_text_view">Get started by adding a chocolate, by pressing the chocolate button</string>
     <string name="hint_chocolate_name">Name</string>
     <string name="hint_chocolate_price">Price</string>
     <string name="hint_chocolate_quantity">Quantity</string>
@@ -37,5 +35,30 @@
     <string name="action_insert_dummy_data">Insert Dummy Data</string>
     <string name="delete">Delete</string>
     <string name="currency">Today\'s currency</string>
+    <string name="quantity_error_message">The quantity can\'t be less than 0!</string>
+    <string name="zero">0</string>
+    <string name="tel">tel:</string>
+    <string name="permission">Without permission you can\'t dial supplier phone number.</string>
+    <string name="enter_a_chocolate_name">You have to enter a Chocolate Name!</string>
+    <string name="eneter_a_price">You have to enter a Price!</string>
+    <string name="eneter_a_quantity">You have to enter a Quantity!</string>
+    <string name="todays_currency">https://www.currenciesdirect.com/en/currency-tools/today-s-rate</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="discard_changes">Discard your changes and quit editing?</string>
+    <string name="delete_this_chocolate">Delete this chocolate?</string>
+    <string name="cancel">Cancel</string>
+    <string name="a_picture_with_the_current_chocolate">A picture with the current chocolate</string>
+    <string name="sell_button_which_reduces_the_quantity_by_1">A sell button which reduces the quantity by 1</string>
+    <string name="a_image_which_represents_the_value_of_the_chocolate">A image which represents the value of the chocolate</string>
+    <string name="a_custom_action_bar">A custom action bar for Main Activity</string>
+    <string name="option_image_view">A option menu for adding a hardcoded enty to the database and to delete all entris. </string>
+    <string name="a_empty_image_view_showing_that_there_is_no_chocolate_in_the_database">A empty image view showing that there is no chocolate in the database</string>
+    <string name="camera_image_view">A image view for opening camera app, and galery app</string>
+    <string name="a_representation_of_the_chocolat">A representation of the chocolate value, which alos opens a website with todays currency</string>
+    <string name="a_minus_button">A minus button which, decreases by 1 the quantity value</string>
+    <string name="a_plus_sing_which_increses_by_one_the_quantity_value">A plus sing which increses by one the quantity value</string>
+    <string name="a_image_view_which_opens_contacts">A image view which opens contacts</string>
+    <string name="a_telfone_icon_which_opens_telphone_app_with_the_users_number">A telfone icon which opens telphone app with the users number</string>
 
 </resources>

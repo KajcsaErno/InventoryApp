@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <item name="coordinatorLayoutStyle">@style/Widget.Design.CoordinatorLayout</item>
 
@@ -27,6 +27,287 @@
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:fontFamily">sans-serif-medium</item>
         <item name="android:textAppearance">?android:textAppearanceSmall</item>
+    </style>
+
+    <style name="chocolate_imageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+    </style>
+
+    <style name="name_textView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+        <item name="android:textSize">@dimen/medion_text_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="price_textView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+        <item name="android:textSize">@dimen/medium_text_size</item>
+    </style>
+
+    <style name="sell_image_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/margin_view</item>
+        <item name="android:layout_marginEnd">@dimen/semm_imageView_margin</item>
+        <item name="android:layout_marginRight">@dimen/semm_imageView_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+    </style>
+
+    <style name="coins_image_style">
+        <item name="android:layout_width">@dimen/coin_dimension</item>
+        <item name="android:layout_height">@dimen/coin_dimension</item>
+        <item name="android:layout_marginLeft">@dimen/margin_view</item>
+        <item name="android:layout_marginStart">@dimen/margin_view</item>
+    </style>
+
+    <style name="flavor_textView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+        <item name="android:textSize">@dimen/flavor_text_size</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="quantity_textView_style">
+        <item name="android:layout_width">@dimen/quantity_dimension</item>
+        <item name="android:layout_height">@dimen/quantity_dimension</item>
+        <item name="android:layout_marginBottom">@dimen/margin_view</item>
+        <item name="android:layout_marginEnd">@dimen/quantity_margin</item>
+        <item name="android:layout_marginRight">@dimen/quantity_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/oval_background_piece_blue</item>
+        <item name="android:padding">@dimen/quantity_padding</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/medion_text_size</item>
+    </style>
+
+    <style name="actionBar_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/actionBar_height</item>
+        <item name="android:background">@drawable/material_background</item>
+    </style>
+
+    <style name="option_imageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/empty_image_margin</item>
+        <item name="android:layout_marginRight">@dimen/empty_image_margin</item>
+    </style>
+
+    <style name="listView_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+    </style>
+
+    <style name="empty_linear_layout_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/margin_view</item>
+        <item name="android:layout_marginTop">@dimen/lol</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="empty_imageView_style">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/marginBottom</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+        <item name="android:layout_marginTop">@dimen/marginTop_empty_imageView</item>
+        <item name="android:adjustViewBounds">false</item>
+        <item name="android:scaleType">fitCenter</item>
+    </style>
+
+    <style name="empty_textView_style">
+        <item name="android:layout_width">@dimen/big_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/margin_bottom</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:paddingTop">@dimen/margin_view</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textAppearance">?android:textAppearanceMedium</item>
+        <item name="android:textColor">#A2AAB0</item>
+    </style>
+
+    <style name="floating_chocolate_button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+    </style>
+
+    <style name="save_button_style" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="cancel_button_style" parent="Widget.AppCompat.Button.Borderless">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="camera_imageView_style">
+        <item name="android:layout_width">@dimen/camera_dimensino</item>
+        <item name="android:layout_height">@dimen/camera_dimensino</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+        <item name="android:layout_marginTop">@dimen/margin_top</item>
+        <item name="android:background">@drawable/oval_background_green</item>
+        <item name="android:padding">@dimen/camera_padding</item>
+    </style>
+
+    <style name="chocolate_detail_imageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/editor_margin</item>
+        <item name="android:layout_marginStart">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/editor_margin</item>
+        <item name="android:textSize">@dimen/medion_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="name_editText_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:inputType">text|textCapWords</item>
+    </style>
+
+    <style name="flavor_editText_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:inputType">text|textCapWords</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="price_editText_style">
+        <item name="android:layout_width">70dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/editor_margin</item>
+        <item name="android:layout_marginStart">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="quantity_editText_style">
+        <item name="android:layout_width">@dimen/editText_dimension</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:gravity">center</item>
+        <item name="android:inputType">number</item>
+        <item name="android:singleLine">false</item>
+    </style>
+
+    <style name="supplier_information_textView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginLeft">@dimen/editor_margin</item>
+        <item name="android:layout_marginStart">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/quantity_margin</item>
+        <item name="android:textSize">@dimen/medion_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="editor_coins_imageView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+    </style>
+
+    <style name="editor_quantity_textView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/margin_view</item>
+        <item name="android:layout_marginLeft">@dimen/editor_margin</item>
+        <item name="android:layout_marginStart">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:textSize">@dimen/medion_text_size</item>
+    </style>
+
+    <style name="minus_imageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+    </style>
+
+    <style name="plus_imageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">@dimen/margin_view</item>
+        <item name="android:layout_marginEnd">@dimen/editor_margin</item>
+        <item name="android:layout_marginLeft">@dimen/margin_view</item>
+        <item name="android:layout_marginRight">@dimen/editor_margin</item>
+        <item name="android:layout_marginStart">@dimen/margin_view</item>
+    </style>
+
+    <style name="phone_editText_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/margin_view</item>
+        <item name="android:layout_marginLeft">@dimen/editor_margin</item>
+        <item name="android:layout_marginRight">@dimen/margin_view</item>
+        <item name="android:layout_marginStart">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:inputType">phone</item>
+    </style>
+
+    <style name="supplier_name_textView_style">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/margin_view</item>
+        <item name="android:layout_marginLeft">@dimen/editor_margin</item>
+        <item name="android:layout_marginRight">@dimen/margin_view</item>
+        <item name="android:layout_marginStart">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+        <item name="android:inputType">text|textCapWords</item>
+    </style>
+
+    <style name="supplier_name_imageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/editor_margin</item>
+        <item name="android:layout_marginRight">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+    </style>
+
+    <style name="phone_imageView_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">@dimen/editor_margin</item>
+        <item name="android:layout_marginRight">@dimen/editor_margin</item>
+        <item name="android:layout_marginTop">@dimen/margin_view</item>
+    </style>
+
+    <style name="delete_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/margin_view</item>
+        <item name="android:background">@color/red</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 
 </resources>

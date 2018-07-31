@@ -14,11 +14,12 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.example.android.inventoryapp.data.ChocolateContract.ChocolateEntry;
 
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Displays list of chocolates that were entered and stored in the app.
  */
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, PopupMenu.OnMenuItemClickListener {
 
     /** Identifier for the chocolate data loader */
     private static final int CHOCOLATE_LOADER = 0;
@@ -42,6 +43,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @BindView(R.id.empty_linearLayout)
     View emptyLinearLayout;
+
+    @BindView(R.id.more_option_imageView)
+    ImageView moreOptionsImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,8 +102,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ContentValues contentValues = new ContentValues();
         contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_NAME, getString(R.string.milka));
         contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_FLAVOR, getString(R.string.whole_nuts));
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_PRICE, "5");
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY, "10");
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_PRICE, 5);
+        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY, 10);
         contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_NAME, getString(R.string.coocke));
         contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_PHONE_NUMBER, getString(R.string.phone));
 
@@ -114,16 +118,23 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.v("MainActivity", rowsDeleted + " rows deleted from chocolate database");
     }
 
-    @Override
+/*    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_main.xmlle.
+        // Inflate the menu options from the res/menu/menu_main.xml.
         // This adds menu items to the app bar.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }*/
+
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(this, v);
+        popup.setOnMenuItemClickListener(this);
+        popup.inflate(R.menu.menu_main);
+        popup.show();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onMenuItemClick(MenuItem item) {
         // User clicked on a menu option in the app bar overflow menu
         switch (item.getItemId()) {
             case R.id.action_insert_dummy_data:
@@ -132,8 +143,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             case R.id.action_delete_all_entries:
                 deleteAllChocolates();
                 return true;
+            default:
+                return false;
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @NonNull

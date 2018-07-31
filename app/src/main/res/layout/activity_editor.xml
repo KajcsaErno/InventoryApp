@@ -8,14 +8,8 @@
 
     <Button
         android:id="@+id/save_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        style="@style/save_button_style"
         android:text="@string/save_button"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/cancel_button"
@@ -23,14 +17,8 @@
 
     <Button
         android:id="@+id/cancel_button"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
+        style="@style/cancel_button_style"
         android:text="@android:string/cancel"
-        android:textAllCaps="true"
-        android:textAppearance="@style/TextAppearance.AppCompat"
-        android:textColor="@android:color/white"
         app:layout_constraintEnd_toStartOf="@+id/save_button"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
@@ -39,16 +27,9 @@
 
 
     <ImageView
-        android:id="@+id/oval_camera_ImageView"
-        android:layout_width="75dp"
-        android:layout_height="75dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/oval_background_green"
-        android:padding="15dp"
+        android:id="@+id/oval_camera_ImageView_style"
+        style="@style/camera_imageView_style"
+        android:contentDescription="@string/camera_image_view"
         app:layout_constraintEnd_toEndOf="@+id/save_button"
         app:layout_constraintStart_toStartOf="@+id/cancel_button"
         app:layout_constraintTop_toBottomOf="@+id/cancel_button"
@@ -56,28 +37,15 @@
 
     <TextView
         android:id="@+id/chocolate_detail_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
+        style="@style/chocolate_detail_imageView"
         android:text="@string/chocolate_details_tv"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/oval_camera_ImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/oval_camera_ImageView_style" />
 
     <EditText
         android:id="@+id/name_editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        style="@style/name_editText_style"
         android:hint="@string/chocolate_name_edit_text"
-        android:inputType="text|textCapWords"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -85,16 +53,8 @@
 
     <EditText
         android:id="@+id/flavor_editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        style="@style/flavor_editText_style"
         android:hint="@string/flavor_edit_text"
-        android:inputType="text|textCapWords"
-        android:singleLine="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,78 +62,47 @@
 
     <EditText
         android:id="@+id/price_editText"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
+        style="@style/price_editText_style"
         android:hint="@string/price_edit_text"
-        android:inputType="number"
-        android:singleLine="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/flavor_editText" />
 
     <EditText
         android:id="@+id/quantity_editText"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:inputType="number"
-        android:singleLine="false"
+        style="@style/quantity_editText_style"
+        android:text="@string/zero"
         app:layout_constraintEnd_toStartOf="@+id/plus_icon_imageView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/minus_icon_imageView"
-        app:layout_constraintTop_toBottomOf="@+id/price_editText"
-        tools:text="55" />
+        app:layout_constraintTop_toBottomOf="@+id/price_editText" />
 
     <TextView
         android:id="@+id/supplier_information_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        style="@style/supplier_information_textView"
         android:text="@string/supplier_information_tv"
-        android:textSize="18sp"
-        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quantity_textView" />
 
     <ImageView
         android:id="@+id/coins_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        style="@style/editor_coins_imageView"
+        android:contentDescription="@string/a_representation_of_the_chocolat"
         app:layout_constraintStart_toEndOf="@+id/price_editText"
         app:layout_constraintTop_toTopOf="@+id/price_editText"
         app:srcCompat="@drawable/coins" />
 
     <TextView
         android:id="@+id/quantity_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        style="@style/editor_quantity_textView_style"
         android:text="@string/quantity_tv"
-        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="@+id/quantity_editText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/price_editText" />
 
     <ImageView
         android:id="@+id/minus_icon_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
+        style="@style/minus_imageView_style"
+        android:contentDescription="@string/a_minus_button"
         app:layout_constraintBottom_toBottomOf="@+id/quantity_editText"
         app:layout_constraintEnd_toStartOf="@+id/quantity_editText"
         app:layout_constraintHorizontal_bias="0.13"
@@ -184,86 +113,52 @@
 
     <ImageView
         android:id="@+id/plus_icon_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginStart="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/quantity_editText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/quantity_editText"
+        style="@style/plus_imageView_style"
+        android:contentDescription="@string/a_plus_sing_which_increses_by_one_the_quantity_value"
         app:srcCompat="@drawable/plus" />
 
     <EditText
         android:id="@+id/supplier_phone_editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:hint="@string/phone_number_edit_text"
-        android:inputType="phone"
         app:layout_constraintEnd_toStartOf="@+id/supplier_phone_imageView"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/phone_editText_style"
         app:layout_constraintTop_toBottomOf="@+id/supplier_name_editText" />
 
     <EditText
         android:id="@+id/supplier_name_editText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="24dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
         android:hint="@string/supplier_name_edit_text"
-        android:inputType="text|textCapWords"
         app:layout_constraintEnd_toStartOf="@+id/supplier_name_imageView"
         app:layout_constraintStart_toStartOf="parent"
+        style="@style/supplier_name_textView_style"
         app:layout_constraintTop_toBottomOf="@+id/supplier_information_textView" />
 
     <ImageView
         android:id="@+id/supplier_name_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/supplier_name_editText"
+        style="@style/supplier_name_imageView_style"
+        android:contentDescription="@string/a_image_view_which_opens_contacts"
         app:srcCompat="@drawable/contact" />
 
     <ImageView
         android:id="@+id/supplier_phone_imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/supplier_phone_editText"
+        style="@style/phone_imageView_style"
+        android:contentDescription="@string/a_telfone_icon_which_opens_telphone_app_with_the_users_number"
         app:srcCompat="@drawable/phone" />
 
     <Button
         android:id="@+id/delete_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:background="@color/red"
         android:text="@string/delete"
-        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        style="@style/delete_button_style"
         app:layout_constraintStart_toStartOf="parent" />
-
 
 </android.support.constraint.ConstraintLayout>

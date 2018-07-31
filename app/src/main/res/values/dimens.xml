@@ -1,4 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="medium_padding_product_text_view">16dp</dimen>
+    <dimen name="margin_view">8dp</dimen>
+    <dimen name="medion_text_size">18sp</dimen>
+    <dimen name="medium_text_size">16sp</dimen>
+    <dimen name="semm_imageView_margin">24dp</dimen>
+    <dimen name="coin_dimension">25dp</dimen>
+    <dimen name="flavor_text_size">14sp</dimen>
+    <dimen name="quantity_dimension">55dp</dimen>
+    <dimen name="quantity_margin">32dp</dimen>
+    <dimen name="quantity_padding">15dp</dimen>
+    <dimen name="actionBar_height">40dp</dimen>
+    <dimen name="empty_image_margin">12dp</dimen>
+    <dimen name="lol">124dp</dimen>
+    <dimen name="marginTop_empty_imageView">48dp</dimen>
+    <dimen name="marginBottom">16dp</dimen>
+    <dimen name="big_width">300dp</dimen>
+    <dimen name="margin_bottom">28dp</dimen>
+    <dimen name="camera_dimensino">75dp</dimen>
+    <dimen name="margin_top">16dp</dimen>
+    <dimen name="camera_padding">15dp</dimen>
+    <dimen name="editor_margin">24dp</dimen>
+    <dimen name="editText_dimension">70dp</dimen>
 </resources>

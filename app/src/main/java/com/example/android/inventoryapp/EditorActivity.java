@@ -1,5 +1,6 @@
 package com.example.android.inventoryapp;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
@@ -15,6 +16,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.MotionEvent;
@@ -68,6 +71,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     ImageView supplierNameImageView;
     @BindView(R.id.coins_imageView)
     ImageView coinsImageView;
+    @BindView(R.id.oval_camera_ImageView_style)
+    ImageView cameraImageView;
+
     /**
      * Content URI for the existing chocolate (null if it's a new chocolate)
      */
@@ -99,17 +105,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // If the intent DOES NOT contain a chocolate content URI, then we know that we are
         // creating a new chocolate.
         if (currentChocolateUri == null) {
-            // This is a new chocolate, so change the app bar to say "Add a Chocolate"
-            setTitle(getString(R.string.editor_activity_title_new_chocolate));
-
             // Invalidate the  "Delete" button so it can be hidden.
             // (It doesn't make sense to delete a chocolate that hasn't been created yet.)
             deleteButton.setVisibility(View.GONE);
 
         } else {
-            // Otherwise this is an existing chocolate, so change app bar to say "Edit The Chocolate"
-            setTitle(getString(R.string.editor_activity_title_edit_chocolate));
-
             // Initialize a loader to read the chocolate data from the database
             // and display the current values in the editor
             getLoaderManager().initLoader(EXISTING_CHOCOLATE_LOADER, null, this);
@@ -145,7 +145,32 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
+        plusImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantityInteger = Integer.parseInt(quantityEditText.getText().toString().trim());
+                quantityEditText.setText(String.valueOf(quantityInteger + 1));
+            }
+        });
 
+        minusImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int quantityInteger = Integer.parseInt(quantityEditText.getText().toString().trim());
+                if (quantityInteger > 0) {
+                    quantityEditText.setText(String.valueOf(quantityInteger - 1));
+                } else {
+                    Toast.makeText(EditorActivity.this, R.string.quantity_error_message, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        cameraImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(EditorActivity.this, "Adding a chocolate picture coming soon!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     /**
@@ -170,6 +195,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Since no fields were modified, we can return early without creating a new chocolate.
             // No need to create ContentValues and no need to do any ContentProvider operations.
             return;
+         /*    } else if (TextUtils.isEmpty(nameString)) {
+            Toast.makeText(this, R.string.enter_a_chocolate_name, Toast.LENGTH_LONG).show();
+        } else if (TextUtils.isEmpty(priceString)) {
+            Toast.makeText(this, R.string.eneter_a_price, Toast.LENGTH_LONG).show();
+        } else if (TextUtils.isEmpty(nameString)) {
+            Toast.makeText(this, R.string.eneter_a_quantity, Toast.LENGTH_LONG).show();
+        */
         }
 
         // Create a ContentValues object where column names are the keys, and chocolate attributes from the editor are the values.
@@ -277,16 +309,25 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             String supplierName = cursor.getString(supplierNameColumnIndex);
             final String supplierPhone = cursor.getString(supplierPhoneColumnIndex);
 
-            //Opening phone app, with the Supplier phone number in it
+            //Opening phone app, with the Supplier phone number in it, if the user gives us their permission
             supplierPhoneImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent callIntent = new Intent(Intent.ACTION_DIAL);
-                    callIntent.setData(Uri.parse("tel:" + supplierPhone));
-                    startActivity(callIntent);
+                    callIntent.setData(Uri.parse(getString(R.string.tel) + supplierPhone));
+                    if (ContextCompat.checkSelfPermission(EditorActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(EditorActivity.this, Manifest.permission.ANSWER_PHONE_CALLS)) {
+                            Toast.makeText(EditorActivity.this, R.string.permission, Toast.LENGTH_LONG).show();
+                        } else {
+                            ActivityCompat.requestPermissions(EditorActivity.this, new String[]{Manifest.permission.CALL_PHONE}, 26);
+                        }
+                    } else {
+                        startActivity(callIntent);
+                    }
                 }
             });
 
+            //Opening contacts
             supplierNameImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -300,7 +341,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             coinsImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Uri uri = Uri.parse("https://www.currenciesdirect.com/en/currency-tools/today-s-rate");
+                    Uri uri = Uri.parse(getString(R.string.todays_currency));
                     Intent openWebsiteIntent = new Intent(Intent.ACTION_VIEW, uri);
 
                     PackageManager packageManager = getPackageManager();
@@ -324,25 +365,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             supplierNameEditText.setText(supplierName);
             supplierPhoneEditText.setText(supplierPhone);
         }
-
-        plusImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            //Update the table with +1 quantity
-            //TODO +
-            public void onClick(View v) {
-                ContentValues contentValues = new ContentValues();
-                contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY, Integer.parseInt(quantityEditText.getText().toString().trim() + 1));
-                getContentResolver().update(currentChocolateUri, contentValues, null, null);
-            }
-        });
-
-        minusImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ContentValues contentValues = new ContentValues();
-                //TODO -
-            }
-        });
     }
 
 
@@ -360,9 +382,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private void showUnsavedChangesDialog(DialogInterface.OnClickListener discardButtonClickListener) {
         // Create an AlertDialog.Builder and set the message, and click listeners for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Discard your changes and quit editing?");
-        builder.setPositiveButton("Discard", discardButtonClickListener);
-        builder.setNegativeButton("Keep Editing", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.discard_changes);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // User clicked the "Keep editing" button, so dismiss the dialog and continue editing the chocolate.
@@ -402,14 +424,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Create an AlertDialog.Builder and set the message, and click listeners
         // for the positive and negative buttons on the dialog.
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Delete this chocolate?");
-        builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+        builder.setMessage(R.string.delete_this_chocolate);
+        builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Delete" button, so delete the chocolate.
                 deleteChocolate();
             }
         });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // User clicked the "Cancel" button, so dismiss the dialog
                 // and continue editing the chocolate.

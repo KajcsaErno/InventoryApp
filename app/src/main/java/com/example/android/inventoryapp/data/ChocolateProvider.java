@@ -163,7 +163,6 @@ public class ChocolateProvider extends ContentProvider {
 
         // Check that the price is valid
         Integer price = values.getAsInteger(ChocolateEntry.COLUMN_CHOCOLATE_PRICE);
-        //TODO not sure if this goes along
         if (price != null && price < 0) {
             throw new IllegalArgumentException("Chocolate requires valid price");
         }
@@ -239,7 +238,6 @@ public class ChocolateProvider extends ContentProvider {
         if (values.containsKey(ChocolateEntry.COLUMN_CHOCOLATE_PRICE)) {
             // Check that the price is greater than or equal to 0
             Integer price = values.getAsInteger(ChocolateEntry.COLUMN_CHOCOLATE_PRICE);
-            //TODO not sure if this goes along
             if (price != null && price < 0) {
                 throw new IllegalArgumentException("Chocolate requires valid price");
             }

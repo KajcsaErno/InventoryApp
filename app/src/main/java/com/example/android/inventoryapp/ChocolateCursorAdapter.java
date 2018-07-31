@@ -27,7 +27,7 @@ public class ChocolateCursorAdapter extends CursorAdapter {
      * @param context The context
      * @param c       The cursor from which to get the data.
      */
-    public ChocolateCursorAdapter(Context context, Cursor c) {
+    ChocolateCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
     }
 
@@ -59,14 +59,12 @@ public class ChocolateCursorAdapter extends CursorAdapter {
     @SuppressLint("SetTextI18n")
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
-        //TODO it is possible to us butter knife in this situation ?
+        //it is possible to us butter knife in this situation ?
         // Find individual views that we want to modify in the list item layout
-        //TODO maybe add images too
-        ImageView imageView = view.findViewById(R.id.chocolate_imageView);
         TextView nameTextView = view.findViewById(R.id.chocolate_name_textView);
         TextView flavorTextView = view.findViewById(R.id.chocolate_flavor_textView);
         TextView priceTextView = view.findViewById(R.id.chocolate_price_textView);
-        TextView quantityTextView = view.findViewById(R.id.chocolate_quantity_textView);
+        final TextView quantityTextView = view.findViewById(R.id.chocolate_quantity_textView);
         ImageView sellImageView = view.findViewById(R.id.sell_imageView);
 
         //Find the columns of chocolate attributes that we're interested in
@@ -93,14 +91,18 @@ public class ChocolateCursorAdapter extends CursorAdapter {
         priceTextView.setText(Integer.toString(chocolatePrice));
         quantityTextView.setText(Integer.toString(chocolateQuantity));
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        sellImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Add a picture", Toast.LENGTH_SHORT).show();
+                int quantityInteger = Integer.parseInt(quantityTextView.getText().toString().trim());
+                if (quantityInteger > 0) {
+                    quantityTextView.setText(String.valueOf(quantityInteger - 1));
+                } else {
+                    Toast.makeText(context, R.string.quantity_error_message, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
 
     }
-
 }
