@@ -59,8 +59,8 @@ public class ChocolateCursorAdapter extends CursorAdapter {
     @SuppressLint("SetTextI18n")
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
-        //it is possible to us butter knife in this situation ?
         // Find individual views that we want to modify in the list item layout
+        //Butter knife here!
         TextView nameTextView = view.findViewById(R.id.chocolate_name_textView);
         TextView flavorTextView = view.findViewById(R.id.chocolate_flavor_textView);
         TextView priceTextView = view.findViewById(R.id.chocolate_price_textView);

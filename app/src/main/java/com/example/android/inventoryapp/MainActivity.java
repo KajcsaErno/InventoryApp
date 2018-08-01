@@ -118,14 +118,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.v("MainActivity", rowsDeleted + " rows deleted from chocolate database");
     }
 
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu options from the res/menu/menu_main.xml.
-        // This adds menu items to the app bar.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }*/
-
     public void showPopup(View v) {
         PopupMenu popup = new PopupMenu(this, v);
         popup.setOnMenuItemClickListener(this);

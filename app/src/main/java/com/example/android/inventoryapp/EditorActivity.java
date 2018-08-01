@@ -126,7 +126,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             @Override
             public void onClick(View v) {
                 saveChocolate();
-                finish();
             }
         });
 
@@ -186,79 +185,72 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String supplierNameString = supplierNameEditText.getText().toString().trim();
         String supplierPhoneString = supplierPhoneEditText.getText().toString().trim();
 
-        // Check if this is supposed to be a new chocolate,
-        // and check if all the fields in the editor are blank
-        if (currentChocolateUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(flavorString) &&
-                TextUtils.isEmpty(priceString) && TextUtils.isEmpty(quantityString) &&
-                TextUtils.isEmpty(supplierNameString) && TextUtils.isEmpty(supplierPhoneString)) {
-            // Since no fields were modified, we can return early without creating a new chocolate.
-            // No need to create ContentValues and no need to do any ContentProvider operations.
-            return;
-         /*    } else if (TextUtils.isEmpty(nameString)) {
-            Toast.makeText(this, R.string.enter_a_chocolate_name, Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(priceString)) {
-            Toast.makeText(this, R.string.eneter_a_price, Toast.LENGTH_LONG).show();
-        } else if (TextUtils.isEmpty(nameString)) {
-            Toast.makeText(this, R.string.eneter_a_quantity, Toast.LENGTH_LONG).show();
-        */
-        }
+        if (TextUtils.isEmpty(nameString) || TextUtils.isEmpty(flavorString)
+                || TextUtils.isEmpty(priceString) || TextUtils.isEmpty(quantityString)
+                || TextUtils.isEmpty(supplierNameString) || TextUtils.isEmpty(supplierPhoneString)) {
+            Toast.makeText(this, R.string.please_fill_all, Toast.LENGTH_LONG).show();
 
-        // Create a ContentValues object where column names are the keys, and chocolate attributes from the editor are the values.
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_NAME, nameString);
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_FLAVOR, flavorString);
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_NAME, supplierNameString);
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
-
-        // If the price is not provided by the user, don't try to parse the string into an integer value. Use 0 by default.
-        int price = 0;
-        if (!TextUtils.isEmpty(priceString)) {
-            price = Integer.parseInt(priceString);
-        }
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_PRICE, price);
-
-        // If the quantity is not provided by the user, don't try to parse the string into an integer value. Use 0 by default.
-        int quantity = 0;
-        if (!TextUtils.isEmpty(quantityString)) {
-            quantity = Integer.parseInt(quantityString);
-        }
-        contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY, quantity);
-
-        // Determine if this is a new or existing chocolate by checking if currentChocolateUri is null or not
-        if (currentChocolateUri == null) {
-            // This is a NEW chocolate, so insert a new chocolate into the provider,
-            // returning the content URI for the new chocolate.
-            Uri newUri = getContentResolver().insert(ChocolateEntry.CONTENT_URI, contentValues);
-
-            // Show a toast message depending on whether or not the insertion was successful.
-            if (newUri == null) {
-                // If the new content URI is null, then there was an error with insertion.
-                Toast.makeText(this, getString(R.string.editor_insert_chocolate_failed),
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, the insertion was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_insert_chocolate_successful),
-                        Toast.LENGTH_SHORT).show();
-            }
         } else {
-            // Otherwise this is an EXISTING chocolate, so update the chocolate with content URI: currentChocolateUri
-            // and pass in the new ContentValues. Pass in null for the selection and selection args
-            // because currentChocolateUri will already identify the correct row in the database that
-            // we want to modify.
-            int rowsAffected = getContentResolver().update(currentChocolateUri, contentValues, null, null);
 
-            // Show a toast message depending on whether or not the update was successful.
-            if (rowsAffected == 0) {
-                // If no rows were affected, then there was an error with the update.
-                Toast.makeText(this, getString(R.string.editor_update_chocolate_failed),
-                        Toast.LENGTH_SHORT).show();
-            } else {
-                // Otherwise, the update was successful and we can display a toast.
-                Toast.makeText(this, getString(R.string.editor_update_chocolate_successful),
-                        Toast.LENGTH_SHORT).show();
+            // Create a ContentValues object where column names are the keys, and chocolate attributes from the editor are the values.
+            ContentValues contentValues;
+            contentValues = new ContentValues();
+            contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_NAME, nameString);
+            contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_FLAVOR, flavorString);
+            contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_NAME, supplierNameString);
+            contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_SUPPLIER_PHONE_NUMBER, supplierPhoneString);
+
+            // If the price is not provided by the user, don't try to parse the string into an integer value. Use 0 by default.
+            int price = 0;
+            if (!TextUtils.isEmpty(priceString)) {
+                price = Integer.parseInt(priceString);
             }
+            contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_PRICE, price);
+
+            // If the quantity is not provided by the user, don't try to parse the string into an integer value. Use 0 by default.
+            int quantity = 0;
+            if (!TextUtils.isEmpty(quantityString)) {
+                quantity = Integer.parseInt(quantityString);
+            }
+            contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY, quantity);
+
+            // Determine if this is a new or existing chocolate by checking if currentChocolateUri is null or not
+            if (currentChocolateUri == null) {
+                // This is a NEW chocolate, so insert a new chocolate into the provider,
+                // returning the content URI for the new chocolate.
+                Uri newUri = getContentResolver().insert(ChocolateEntry.CONTENT_URI, contentValues);
+
+                // Show a toast message depending on whether or not the insertion was successful.
+                if (newUri == null) {
+                    // If the new content URI is null, then there was an error with insertion.
+                    Toast.makeText(this, getString(R.string.editor_insert_chocolate_failed),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Otherwise, the insertion was successful and we can display a toast.
+                    Toast.makeText(this, getString(R.string.editor_insert_chocolate_successful),
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                // Otherwise this is an EXISTING chocolate, so update the chocolate with content URI: currentChocolateUri
+                // and pass in the new ContentValues. Pass in null for the selection and selection args
+                // because currentChocolateUri will already identify the correct row in the database that
+                // we want to modify.
+                int rowsAffected = getContentResolver().update(currentChocolateUri, contentValues, null, null);
+
+                // Show a toast message depending on whether or not the update was successful.
+                if (rowsAffected == 0) {
+                    // If no rows were affected, then there was an error with the update.
+                    Toast.makeText(this, getString(R.string.editor_update_chocolate_failed),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Otherwise, the update was successful and we can display a toast.
+                    Toast.makeText(this, getString(R.string.editor_update_chocolate_successful),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+            finish();
         }
+
     }
 
 

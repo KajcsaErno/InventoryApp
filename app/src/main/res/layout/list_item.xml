@@ -27,7 +27,11 @@
     <TextView
         android:id="@+id/chocolate_price_textView"
         style="@style/price_textView"
-        cardview:layout_constraintStart_toStartOf="@+id/chocolate_flavor_textView"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="160dp"
+        cardview:layout_constraintEnd_toEndOf="@+id/chocolate_name_textView"
+        cardview:layout_constraintStart_toStartOf="@+id/chocolate_name_textView"
         cardview:layout_constraintTop_toBottomOf="@+id/chocolate_flavor_textView"
         tools:text="15" />
 
@@ -43,6 +47,9 @@
     <ImageView
         android:id="@+id/coins_imageView"
         style="@style/coins_image_style"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:contentDescription="@string/a_image_which_represents_the_value_of_the_chocolate"
         cardview:layout_constraintBottom_toBottomOf="@+id/chocolate_price_textView"
         cardview:layout_constraintStart_toEndOf="@+id/chocolate_price_textView"
