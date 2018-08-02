@@ -61,5 +61,8 @@
     <string name="a_image_view_which_opens_contacts">A image view which opens contacts</string>
     <string name="a_telfone_icon_which_opens_telphone_app_with_the_users_number">A telfone icon which opens telphone app with the users number</string>
     <string name="please_fill_all">Please fill all the starred fields to save the product</string>
+    <string name="ivalid_number">Invalid number</string>
+    <string name="you_cant_add_one">You can\'t add one, try with a smaller number!</string>
+    <string name="you_cant_remove_one">You can\'t remove one, try with a smaller number!</string>
 
 </resources>

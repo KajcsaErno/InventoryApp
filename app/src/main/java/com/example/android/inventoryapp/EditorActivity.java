@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,8 +27,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ChocolateContract.ChocolateEntry;
-
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -147,7 +144,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         plusImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int quantityInteger = Integer.parseInt(quantityEditText.getText().toString().trim());
+                int quantityInteger;
+                try {
+                    quantityInteger = Integer.parseInt(quantityEditText.getText().toString().trim());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), R.string.you_cant_add_one, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 quantityEditText.setText(String.valueOf(quantityInteger + 1));
             }
         });
@@ -155,7 +158,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         minusImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int quantityInteger = Integer.parseInt(quantityEditText.getText().toString().trim());
+                int quantityInteger;
+                try {
+                    quantityInteger = Integer.parseInt(quantityEditText.getText().toString().trim());
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), R.string.you_cant_remove_one, Toast.LENGTH_LONG).show();
+                    return;
+                }
                 if (quantityInteger > 0) {
                     quantityEditText.setText(String.valueOf(quantityInteger - 1));
                 } else {
@@ -203,14 +212,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // If the price is not provided by the user, don't try to parse the string into an integer value. Use 0 by default.
             int price = 0;
             if (!TextUtils.isEmpty(priceString)) {
-                price = Integer.parseInt(priceString);
+                try {
+                    price = Integer.parseInt(priceString);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), R.string.ivalid_number, Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
             contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_PRICE, price);
 
             // If the quantity is not provided by the user, don't try to parse the string into an integer value. Use 0 by default.
             int quantity = 0;
             if (!TextUtils.isEmpty(quantityString)) {
-                quantity = Integer.parseInt(quantityString);
+                try {
+                    quantity = Integer.parseInt(quantityString);
+                } catch (NumberFormatException e) {
+                    Toast.makeText(getApplicationContext(), R.string.ivalid_number, Toast.LENGTH_LONG).show();
+                    return;
+                }
             }
             contentValues.put(ChocolateEntry.COLUMN_CHOCOLATE_QUANTITY, quantity);
 
@@ -335,12 +354,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 public void onClick(View v) {
                     Uri uri = Uri.parse(getString(R.string.todays_currency));
                     Intent openWebsiteIntent = new Intent(Intent.ACTION_VIEW, uri);
-
-                    PackageManager packageManager = getPackageManager();
-                    List<ResolveInfo> activities = packageManager.queryIntentActivities(openWebsiteIntent,
-                            PackageManager.MATCH_DEFAULT_ONLY);
-                    //Verify if there is a web browser installed on the device
-                    if (activities.size() > 0) {
+                    // Verify that the intent will resolve to an activity
+                    if (openWebsiteIntent.resolveActivity(getPackageManager()) != null) {
                         startActivity(openWebsiteIntent);
                     }
 
