@@ -64,5 +64,6 @@
     <string name="ivalid_number">Invalid number</string>
     <string name="you_cant_add_one">You can\'t add one, try with a smaller number!</string>
     <string name="you_cant_remove_one">You can\'t remove one, try with a smaller number!</string>
+    <string name="soon">Adding a chocolate picture coming soon!</string>
 
 </resources>

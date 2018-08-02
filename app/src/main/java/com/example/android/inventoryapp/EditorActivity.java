@@ -176,7 +176,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         cameraImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(EditorActivity.this, "Adding a chocolate picture coming soon!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditorActivity.this, R.string.soon, Toast.LENGTH_SHORT).show();
             }
         });
     }
